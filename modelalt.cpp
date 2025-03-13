@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <limits>
+using namespace std;
 
 // -------------------------
 // User and Derived Classes
@@ -9,37 +10,37 @@
 class User {
 protected:
     int userId;
-    std::string name;
-    std::string email;
-    std::string password;  // In a real system, never store plain passwords!
+    string name;
+    string email;
+    string password;  // In a real system, never store plain passwords!
 public:
-    User(int id, const std::string &n, const std::string &em, const std::string &pass)
+    User(int id, const string &n, const string &em, const string &pass)
         : userId(id), name(n), email(em), password(pass) {}
     virtual ~User() {}
     
-    std::string getEmail() const { return email; }
-    std::string getName() const { return name; }
+    string getEmail() const { return email; }
+    string getName() const { return name; }
     int getUserId() const { return userId; }
     
-    bool verifyPassword(const std::string &pass) const { return password == pass; }
-    virtual std::string getRole() const { return "User"; }
+    bool verifyPassword(const string &pass) const { return password == pass; }
+    virtual string getRole() const { return "User"; }
 };
 
 class Student : public User {
 private:
-    std::string department;
+    string department;
 public:
-    Student(int id, const std::string &n, const std::string &em, const std::string &pass, const std::string &dept)
+    Student(int id, const string &n, const string &em, const string &pass, const string &dept)
         : User(id, n, em, pass), department(dept) {}
-    std::string getDepartment() const { return department; }
-    std::string getRole() const override { return "Student"; }
+    string getDepartment() const { return department; }
+    string getRole() const override { return "Student"; }
 };
 
 class Admin : public User {
 public:
-    Admin(int id, const std::string &n, const std::string &em, const std::string &pass)
+    Admin(int id, const string &n, const string &em, const string &pass)
         : User(id, n, em, pass) {}
-    std::string getRole() const override { return "Admin"; }
+    string getRole() const override { return "Admin"; }
 };
 
 // -------------------------
@@ -48,64 +49,64 @@ public:
 class Item {
 protected:
     int itemId;
-    std::string description;
-    std::string category;
-    std::string location;
-    std::string date;   // For simplicity, date is stored as string (e.g., "2025-03-05")
-    std::string status; // "Pending", "Approved", "Claimed"
+    string description;
+    string category;
+    string location;
+    string date;   // For simplicity, date is stored as string (e.g., "2025-03-05")
+    string status; // "Pending", "Approved", "Claimed"
 public:
-    Item(int id, const std::string &desc, const std::string &cat, const std::string &loc, const std::string &dt)
+    Item(int id, const string &desc, const string &cat, const string &loc, const string &dt)
         : itemId(id), description(desc), category(cat), location(loc), date(dt), status("Pending") {}
     virtual ~Item() {}
     
     virtual void display() const {
-        std::cout << "Item ID: " << itemId << "\n"
-                  << "Description: " << description << "\n"
-                  << "Category: " << category << "\n"
-                  << "Location: " << location << "\n"
-                  << "Date: " << date << "\n"
-                  << "Status: " << status << "\n";
+        cout << "Item ID: " << itemId << "\n"
+             << "Description: " << description << "\n"
+             << "Category: " << category << "\n"
+             << "Location: " << location << "\n"
+             << "Date: " << date << "\n"
+             << "Status: " << status << "\n";
     }
     
     int getItemId() const { return itemId; }
-    std::string getStatus() const { return status; }
-    void setStatus(const std::string &newStatus) { status = newStatus; }
-    std::string getCategory() const { return category; }
-    std::string getLocation() const { return location; }
-    std::string getDescription() const { return description; }
+    string getStatus() const { return status; }
+    void setStatus(const string &newStatus) { status = newStatus; }
+    string getCategory() const { return category; }
+    string getLocation() const { return location; }
+    string getDescription() const { return description; }
 };
 
 class LostItem : public Item {
 private:
-    std::string lostDate;
-    std::string additionalInfo;
+    string lostDate;
+    string additionalInfo;
 public:
-    LostItem(int id, const std::string &desc, const std::string &cat, const std::string &loc,
-             const std::string &dt, const std::string &lDate, const std::string &addInfo)
+    LostItem(int id, const string &desc, const string &cat, const string &loc,
+             const string &dt, const string &lDate, const string &addInfo)
         : Item(id, desc, cat, loc, dt), lostDate(lDate), additionalInfo(addInfo) {}
     
     void display() const override {
-        std::cout << "----- Lost Item -----\n";
+        cout << "----- Lost Item -----\n";
         Item::display();
-        std::cout << "Lost Date: " << lostDate << "\n"
-                  << "Additional Info: " << additionalInfo << "\n";
+        cout << "Lost Date: " << lostDate << "\n"
+             << "Additional Info: " << additionalInfo << "\n";
     }
 };
 
 class FoundItem : public Item {
 private:
-    std::string foundDate;
-    std::string additionalInfo;
+    string foundDate;
+    string additionalInfo;
 public:
-    FoundItem(int id, const std::string &desc, const std::string &cat, const std::string &loc,
-              const std::string &dt, const std::string &fDate, const std::string &addInfo)
+    FoundItem(int id, const string &desc, const string &cat, const string &loc,
+              const string &dt, const string &fDate, const string &addInfo)
         : Item(id, desc, cat, loc, dt), foundDate(fDate), additionalInfo(addInfo) {}
     
     void display() const override {
-        std::cout << "----- Found Item -----\n";
+        cout << "----- Found Item -----\n";
         Item::display();
-        std::cout << "Found Date: " << foundDate << "\n"
-                  << "Additional Info: " << additionalInfo << "\n";
+        cout << "Found Date: " << foundDate << "\n"
+             << "Additional Info: " << additionalInfo << "\n";
     }
 };
 
@@ -115,12 +116,12 @@ public:
 class Notification {
 private:
     int notificationId;
-    std::string message;
+    string message;
 public:
-    Notification(int id, const std::string &msg) : notificationId(id), message(msg) {}
+    Notification(int id, const string &msg) : notificationId(id), message(msg) {}
     
     void send(const User &user) const {
-        std::cout << "Notification for " << user.getEmail() << ": " << message << "\n";
+        cout << "Notification for " << user.getEmail() << ": " << message << "\n";
     }
 };
 
@@ -129,14 +130,14 @@ public:
 // -------------------------
 class LostAndFoundSystem {
 private:
-    std::vector<User *> users;
-    std::vector<Item *> items;
+    vector<User *> users;
+    vector<Item *> items;
     int nextUserId;
     int nextItemId;
     
-    // Utility function to clear input buffer (for getline after std::cin >> choice)
+    // Utility function to clear input buffer (for getline after cin >> choice)
     void clearInput() {
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
     
 public:
@@ -155,143 +156,143 @@ public:
     }
     
     void registerStudent() {
-        std::string name, email, password, department;
+        string name, email, password, department;
         clearInput();
-        std::cout << "Enter name: ";
-        std::getline(std::cin, name);
-        std::cout << "Enter email: ";
-        std::getline(std::cin, email);
-        std::cout << "Enter password: ";
-        std::getline(std::cin, password);
-        std::cout << "Enter department: ";
-        std::getline(std::cin, department);
+        cout << "Enter name: ";
+        getline(cin, name);
+        cout << "Enter email: ";
+        getline(cin, email);
+        cout << "Enter password: ";
+        getline(cin, password);
+        cout << "Enter department: ";
+        getline(cin, department);
         
         users.push_back(new Student(nextUserId++, name, email, password, department));
-        std::cout << "Student registered successfully!\n";
+        cout << "Student registered successfully!\n";
     }
     
     User* login() {
-        std::string email, password;
+        string email, password;
         clearInput();
-        std::cout << "Enter email: ";
-        std::getline(std::cin, email);
-        std::cout << "Enter password: ";
-        std::getline(std::cin, password);
+        cout << "Enter email: ";
+        getline(cin, email);
+        cout << "Enter password: ";
+        getline(cin, password);
         
         for (auto user : users) {
             if (user->getEmail() == email && user->verifyPassword(password)) {
-                std::cout << "Login successful! Welcome, " << user->getName()
-                          << " (" << user->getRole() << ")\n";
+                cout << "Login successful! Welcome, " << user->getName()
+                     << " (" << user->getRole() << ")\n";
                 return user;
             }
         }
-        std::cout << "Invalid email or password.\n";
+        cout << "Invalid email or password.\n";
         return nullptr;
     }
     
     void addLostItem() {
-        std::string description, category, location, date, lostDate, additionalInfo;
+        string description, category, location, date, lostDate, additionalInfo;
         clearInput();
-        std::cout << "Enter description: ";
-        std::getline(std::cin, description);
-        std::cout << "Enter category: ";
-        std::getline(std::cin, category);
-        std::cout << "Enter location: ";
-        std::getline(std::cin, location);
-        std::cout << "Enter report date (YYYY-MM-DD): ";
-        std::getline(std::cin, date);
-        std::cout << "Enter lost date (YYYY-MM-DD): ";
-        std::getline(std::cin, lostDate);
-        std::cout << "Enter additional info: ";
-        std::getline(std::cin, additionalInfo);
+        cout << "Enter description: ";
+        getline(cin, description);
+        cout << "Enter category: ";
+        getline(cin, category);
+        cout << "Enter location: ";
+        getline(cin, location);
+        cout << "Enter report date (YYYY-MM-DD): ";
+        getline(cin, date);
+        cout << "Enter lost date (YYYY-MM-DD): ";
+        getline(cin, lostDate);
+        cout << "Enter additional info: ";
+        getline(cin, additionalInfo);
         
         items.push_back(new LostItem(nextItemId++, description, category, location, date, lostDate, additionalInfo));
-        std::cout << "Lost item reported successfully. Awaiting admin approval.\n";
+        cout << "Lost item reported successfully. Awaiting admin approval.\n";
     }
     
     void addFoundItem() {
-        std::string description, category, location, date, foundDate, additionalInfo;
+        string description, category, location, date, foundDate, additionalInfo;
         clearInput();
-        std::cout << "Enter description: ";
-        std::getline(std::cin, description);
-        std::cout << "Enter category: ";
-        std::getline(std::cin, category);
-        std::cout << "Enter location: ";
-        std::getline(std::cin, location);
-        std::cout << "Enter report date (YYYY-MM-DD): ";
-        std::getline(std::cin, date);
-        std::cout << "Enter found date (YYYY-MM-DD): ";
-        std::getline(std::cin, foundDate);
-        std::cout << "Enter additional info: ";
-        std::getline(std::cin, additionalInfo);
+        cout << "Enter description: ";
+        getline(cin, description);
+        cout << "Enter category: ";
+        getline(cin, category);
+        cout << "Enter location: ";
+        getline(cin, location);
+        cout << "Enter report date (YYYY-MM-DD): ";
+        getline(cin, date);
+        cout << "Enter found date (YYYY-MM-DD): ";
+        getline(cin, foundDate);
+        cout << "Enter additional info: ";
+        getline(cin, additionalInfo);
         
         items.push_back(new FoundItem(nextItemId++, description, category, location, date, foundDate, additionalInfo));
-        std::cout << "Found item reported successfully. Awaiting admin approval.\n";
+        cout << "Found item reported successfully. Awaiting admin approval.\n";
     }
     
     void searchItems() {
-        std::string keyword;
+        string keyword;
         clearInput();
-        std::cout << "Enter keyword to search (description, category, or location): ";
-        std::getline(std::cin, keyword);
+        cout << "Enter keyword to search (description, category, or location): ";
+        getline(cin, keyword);
         bool foundAny = false;
         for (auto item : items) {
             // A simple substring search (case-sensitive for simplicity)
-            if (item->getDescription().find(keyword) != std::string::npos ||
-                item->getCategory().find(keyword) != std::string::npos ||
-                item->getLocation().find(keyword) != std::string::npos) {
+            if (item->getDescription().find(keyword) != string::npos ||
+                item->getCategory().find(keyword) != string::npos ||
+                item->getLocation().find(keyword) != string::npos) {
                 item->display();
-                std::cout << "---------------------\n";
+                cout << "---------------------\n";
                 foundAny = true;
             }
         }
         if (!foundAny) {
-            std::cout << "No items found matching the keyword.\n";
+            cout << "No items found matching the keyword.\n";
         }
     }
     
     void adminApproveItem() {
         bool pendingFound = false;
-        std::cout << "Listing pending items for approval:\n";
+        cout << "Listing pending items for approval:\n";
         for (auto item : items) {
             if (item->getStatus() == "Pending") {
                 item->display();
-                std::cout << "---------------------\n";
+                cout << "---------------------\n";
                 pendingFound = true;
             }
         }
         if (!pendingFound) {
-            std::cout << "No pending items for approval.\n";
+            cout << "No pending items for approval.\n";
             return;
         }
         
         int id;
-        std::cout << "Enter the item ID to approve: ";
-        std::cin >> id;
+        cout << "Enter the item ID to approve: ";
+        cin >> id;
         
         bool approved = false;
         for (auto item : items) {
             if (item->getItemId() == id && item->getStatus() == "Pending") {
                 item->setStatus("Approved");
-                std::cout << "Item approved successfully.\n";
+                cout << "Item approved successfully.\n";
                 // In a real application, you would now trigger a notification to the reporting user.
                 approved = true;
                 break;
             }
         }
         if (!approved) {
-            std::cout << "Item not found or already approved.\n";
+            cout << "Item not found or already approved.\n";
         }
     }
     
     void showAllItems() {
         if (items.empty()) {
-            std::cout << "No items reported yet.\n";
+            cout << "No items reported yet.\n";
             return;
         }
         for (auto item : items) {
             item->display();
-            std::cout << "---------------------\n";
+            cout << "---------------------\n";
         }
     }
 };
@@ -304,12 +305,12 @@ int main() {
     int choice;
     
     while (true) {
-        std::cout << "\n=== College Lost and Found System ===\n";
-        std::cout << "1. Register (Student)\n";
-        std::cout << "2. Login\n";
-        std::cout << "3. Exit\n";
-        std::cout << "Enter choice: ";
-        std::cin >> choice;
+        cout << "\n=== College Lost and Found System ===\n";
+        cout << "1. Register (Student)\n";
+        cout << "2. Login\n";
+        cout << "3. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
         
         if (choice == 1) {
             system.registerStudent();
@@ -320,13 +321,13 @@ int main() {
                 if (user->getRole() == "Student") {
                     int studentChoice;
                     do {
-                        std::cout << "\n--- Student Menu ---\n";
-                        std::cout << "1. Report Lost Item\n";
-                        std::cout << "2. Report Found Item\n";
-                        std::cout << "3. Search Items\n";
-                        std::cout << "4. Logout\n";
-                        std::cout << "Enter choice: ";
-                        std::cin >> studentChoice;
+                        cout << "\n--- Student Menu ---\n";
+                        cout << "1. Report Lost Item\n";
+                        cout << "2. Report Found Item\n";
+                        cout << "3. Search Items\n";
+                        cout << "4. Logout\n";
+                        cout << "Enter choice: ";
+                        cin >> studentChoice;
                         
                         if (studentChoice == 1) {
                             system.addLostItem();
@@ -342,12 +343,12 @@ int main() {
                 else if (user->getRole() == "Admin") {
                     int adminChoice;
                     do {
-                        std::cout << "\n--- Admin Menu ---\n";
-                        std::cout << "1. Approve Items\n";
-                        std::cout << "2. View All Items\n";
-                        std::cout << "3. Logout\n";
-                        std::cout << "Enter choice: ";
-                        std::cin >> adminChoice;
+                        cout << "\n--- Admin Menu ---\n";
+                        cout << "1. Approve Items\n";
+                        cout << "2. View All Items\n";
+                        cout << "3. Logout\n";
+                        cout << "Enter choice: ";
+                        cin >> adminChoice;
                         
                         if (adminChoice == 1) {
                             system.adminApproveItem();
@@ -360,11 +361,11 @@ int main() {
             }
         }
         else if (choice == 3) {
-            std::cout << "Exiting system. Goodbye!\n";
+            cout << "Exiting system. Goodbye!\n";
             break;
         }
         else {
-            std::cout << "Invalid choice. Please try again.\n";
+            cout << "Invalid choice. Please try again.\n";
         }
     }
     
